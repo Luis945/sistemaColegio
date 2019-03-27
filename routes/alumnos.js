@@ -20,8 +20,13 @@ router.get('/login',function(req,res) {
 router.get('/dashboard',function(req,res,next){
   if(req.session.isLoggedIn!=undefined){
     if(req.session.isLoggedIn.Tipo=='Alumno'){
-     var anuncios= Alerta.alertaAlumno.find({'Matricula':req.session.isLoggedIn.Data.Matricula,'Estado':'Activo'});
-      res.render('dashalumno',{title:'Dashboard',Alumno:req.session.isLoggedIn.Data,anuncios});
+     Alerta.alertaAlumno.find({'alumno':req.session.isLoggedIn.Data._id,'Estado':'Activo'}).exec().then(doc=>{
+
+     var anuncios= doc;
+     
+     res.render('dashalumno',{title:'Dashboard',Alumno:req.session.isLoggedIn.Data,anuncios});
+    
+     });
     }
     else{
       res.redirect('/alumno/login');

@@ -13,7 +13,9 @@ var Alumno= new schema({
     Estado:String,
     generacion:Number,
     created_at:Date,
-    password:String
-    
+    password:String,
+    alertas:[{
+        type: schema.Types.ObjectId, ref: 'alertaalumnos'
+    }]
 });
 module.exports.Schema=Alumno;

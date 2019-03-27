@@ -42,23 +42,27 @@ var router = express.Router();
         }
         });
   });
-  router.post('/logout',function (req,res) {
-    req.session.isLoggedIn=undefined;
-      res.redirect('/')
-  });
+  router.get('/logout',function (req,res) {
+    if(req.session.isLoggedIn!=undefined){
+      req.session.isLoggedIn=undefined;
+        res.redirect('/');
+      }else{
+        res.redirect('/alumno/login');
+      }
+    });
   
   //url de las demás que no son del login
   router.get('/alertas',function (req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
         var alumnos,alertas;
-        Alerta.find({'Correo':req.session.isLoggedIn.Data.Correo}).exec().then(doc=>{
+        Alerta.find({'maestro':req.session.isLoggedIn.Data._id,'Estado':'Activo'})
+        .populate({path:'alumno',select:'Nombre Apellido_P'})
+        .populate({path:'maestro',select:'Nombre Apellido_P'}).exec().then(doc=>{
           alertas=doc;
         Alumno.find().exec().then(doc=>{
           alumnos=doc;
 
-          console.log(alumnos);
-         
         res.render('alertasAlumno',{title:'Alertas para alumnos',
         Maestro:req.session.isLoggedIn.Data,
         alertas:alertas,
@@ -76,8 +80,8 @@ var router = express.Router();
   });
   router.post('/agregarAlertas',function (req,res) {
     var nueva= new Alerta({
-      Matricula:req.body.Alumno,
-      Correo:req.body.Correo,
+      alumno:req.body.Alumno,
+      maestro:req.session.isLoggedIn.Data._id,
       Titulo:req.body.Titulo,
       Descripcion:req.body.Descripcion,
       created_at:new Date(),
@@ -88,6 +92,10 @@ var router = express.Router();
     nueva.save(function(){
       res.redirect('/maestro/alertas');
     });
+  });
+  router.post('/borrarAlerta',function (req,res) {
+    Alerta.findByIdAndUpdate(req.body.id,{Estado:'Inactivo'}).exec();
+    res.redirect('/maestro/alertas');
   });
 
 module.exports = router;

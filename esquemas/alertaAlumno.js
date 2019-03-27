@@ -2,8 +2,8 @@ var mongoose= require('mongoose');
 var schema= mongoose.Schema;
 
 var AlertaAlumno= new schema({
-    Matricula:String,
-    Correo:String,
+    alumno:{ type: schema.Types.ObjectId, ref: 'Alumno' },
+    maestro:{ type: schema.Types.ObjectId, ref: 'Maestro'},
     Titulo:String,
     Descripcion:String,
     created_at:Date,
