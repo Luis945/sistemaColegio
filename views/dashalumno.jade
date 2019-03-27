@@ -1,0 +1,28 @@
+extends layoutsesion
+
+block principal
+        if  anuncios
+            .container-fluid#mencion.animated.slideInLeft
+                .row.jumbotron
+                    .col-xs-12.col-sm-12.col-md-9.col-lg-9.col-xl-10
+                        p.lead Las alertas desaparecerán automáticamente después de pasar el periodo de vencimiento de las mismas, si no tienes alertas hacer caso omiso a este mensaje.
+                    .col-xs-12.col-sm-12.col-md-3.col-lg-3.col-xl-2
+                        button(type='button',onclick='mencionado()').btn.btn-outline-secondary.btn-lg#aceptarDash Aceptar
+            .container-fluid
+                .row.text-center.padding   
+                    each anuncio in anuncios.length ? anuncios: []
+                        .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.animated.slideInUp          
+                            .card
+                                .card-body
+                                    .card-title
+                                        h3= anuncio.Titulo
+                                    .card-text
+                                        p.lead= anuncio.Descripcion
+                                    .card-text
+                                        p.lead= anuncio.FechaInicio
+                                        p.lead.text-danger= anuncio.FechaFin
+                    else
+                        .col-12
+                            h2 No tienes alertas nuevas
+                            i.fa.fa-grin-alt.display-1
+            

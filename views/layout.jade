@@ -1,0 +1,39 @@
+doctype html
+html(lang="Es")
+  head
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    script(src="/jquery/dist/jquery.js")
+    script(src="/bootstrap/dist/js/bootstrap.js")
+    script(src="/javascripts/wow.min.js")
+    script(src="/javascripts/acciones.js")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet", href="/bootstrap/dist/css/bootstrap.css", attr)
+    link(rel="stylesheet", href="/stylesheets/animate.css", attr)
+    link(rel="stylesheet", href="/stylesheets/all.css")
+      
+  body
+   nav.navbar.navbar-expand-md.sticky-top.navbar-dark.bg-dark
+      a.navbar-brand(href='/') Inicio
+      button.navbar-toggler(type="button",data-toggle="collapse",data-target="#navmovil")
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navmovil
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+            span.sr-only Actual
+          li.nav-item.dropdown
+            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Familia MQ!
+            .dropdown-menu(aria-labelledby='navbarDropdownMenuLink') 
+              a.dropdown-item(href='/alumno/login') Alumnos
+              a.dropdown-item(href='/maestro/login') Maestros
+              a.dropdown-item(href='/padres') Padres   
+          li.nav-item
+            a.nav-link(href='/somos') ¿Quiénes somos?
+          li.nav-item
+            a.nav-link(href='/colegio') Colegio
+            
+           
+    block principal
+      
+    

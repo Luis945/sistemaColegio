@@ -1,0 +1,24 @@
+extends layout
+
+block principal
+    .container-fluid
+        .row.padding
+            .col-md-2.col-lg-3.col-xl-2
+            .col-xs-12.col-sm-12.col-md-8.col-lg-6.col-xl-8
+                form(action="/agregarmaestro" method="post")
+                    .form-row
+                        .col-12
+                            label(for="Nombre") Nombre
+                            input(type="text", name="Nombre", required).form-control
+                        .col-12
+                            label(for="Apellidos") Apellidos
+                            input(type="text", name="Apellidos", required).form-control
+                        .col-12
+                            label(for="Correo") Correo
+                            input(type="email", name="Correo", required).form-control
+                        .col-12
+                            label(for="Password") Contraseña
+                            input(type="password", name="Password", required).form-control
+                        .col-12.text-center
+                            button(type="submit").btn.btn-primary Agregar
+            .col-md-2.col-lg-3.col-xl-2

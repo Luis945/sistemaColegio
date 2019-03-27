@@ -1,0 +1,27 @@
+extends layout
+
+block principal
+  img(src="/images/class.jpg", alt="alt").fondo
+  .container-fluid
+    .row.padding
+      .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4
+        
+      .col-xs-0.col-sm-0.col-md-0.col-lg-8.col-xl-8
+
+      .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4.blanco.animated.fadeInLeft
+        h3.text-center= title
+        center
+          img(src="/images/user.png", alt="alt").sesion.animated.rotateIn
+        
+        form(action="/maestro/verify" method="post")
+          .form-row
+            .col-12
+              label(for="Correo") Correo
+              input(type="email", name="Correo",placeholder="Ejemplo: profesor@gmail.com",required).form-control
+            rh.my-2
+            .col-12
+              label(for="Password") Contraseña
+              input(type="password", name="Password").form-control
+            .col-12.text-center
+              button.btn-primary.btn-lg(type='submit') Iniciar
+            

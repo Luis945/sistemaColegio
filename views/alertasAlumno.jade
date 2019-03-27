@@ -1,0 +1,43 @@
+extends layoutsesion2
+
+block principal
+    .container-fluid
+                .row.padding 
+                    .col-xs-12.col-sm-12.col-md-4.col-lg-4.col-xl-3.animated.slideInUp.text-center          
+                        each anuncio in alertas
+                                .card
+                                    .card-body
+                                        .card-title
+                                            h4= anuncio.Titulo
+                                        .card-text
+                                            p= anuncio.Descripcion
+                                        .card-text
+                                            p= anuncio.FechaInicio
+                                            p.text-danger= anuncio.FechaFin
+                        else
+                                h2 Ninguna alerta activa.
+                                i.fa.fa-grin-alt.display-1
+                    .col-xs-12.col-sm-12.col-md-8.col-lg-8.col-xl-9.animated.slideInRight          
+                        h2.text-center Agrega una alerta.
+                        form(action="agregarAlertas" method="post")
+                            .form-row
+                                .col-12
+                                    label(for="Alumno") Selecciona el alumno
+                                    select(name="Alumno").form-control
+                                        each alumno in alumnos
+                                            option(value=alumno.Matricula)= alumno.Nombre+ ' ' +alumno.Apellido_P
+                                .col-12
+                                    label(for="Titulo") Título de la alerta
+                                    input(type="text", name="Titulo").form-control
+                                .col-12
+                                    label(for="Descripcion") Información extra
+                                    textarea(name="Descripcion", cols="30", rows="2", maxlength="150").form-control
+                                .col-6
+                                    label(for="FechaInicio") Fecha en que inicia
+                                    input(type="date", name="FechaInicio").form-control
+                                .col-6
+                                    label(for="FechaFin") Fecha en que termina
+                                    input(type="date", name="FechaFin").form-control
+                                .col-12
+                                    input(type="hidden", name="Correo",value= Maestro.Correo)
+                                    button(type="submit").btn.btn-primary Enviar
