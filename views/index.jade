@@ -1,5 +1,31 @@
 extends layout
 
 block principal
-  h1= title
-  p Welcome to #{title}
+  img(src="/images/image_5.gif", alt="principal").img-fluid.primario
+  hr.my-4
+  .container-fluid.blanco
+    .row
+      .col-xs-0.col-sm-1.col-md-1.col-lg-2.col-xl-1
+      .col-xs-12.col-sm-10.col-md-10.col-lg-8.col-xl-10
+        h3.text-center Misión
+        blockquote.blockquote 
+          o.text-center A través del desarrollo de habilidades, formar hombres y mujeres éticos, con sólida calidad académica dentro de un sistema bicultural y socioemocional, siendo capaces de actuar libre y responsablemente en beneficio de la sociedad.
+          small.blockquote-footer.text-right da click #[a(href="/somos", title="quienes_somos") aquí ] para saber más
+
+  hr.my-4
+  .container-fluid.primario
+    img(src="/images/D_1.png", alt="alt").img-fluid
+  hr.my-4
+  .container-fluid  
+    .row 
+      .col-12
+        .h3.text-center Nuestra formación
+      .col-xs-12.col-sm-6.col-md-6.col-lg-4.col-xl-3
+        .card
+          .card-img
+          .card-body.text-center
+            h3.card-title Nursery
+          .card-text.text-center
+            p.lead Estancia para bebés
+  hr.my-4
+

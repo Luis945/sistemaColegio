@@ -20,7 +20,8 @@ router.get('/login',function(req,res) {
 router.get('/dashboard',function(req,res,next){
   if(req.session.isLoggedIn!=undefined){
     if(req.session.isLoggedIn.Tipo=='Alumno'){
-     Alerta.alertaAlumno.find({'alumno':req.session.isLoggedIn.Data._id,'Estado':'Activo'}).exec().then(doc=>{
+     Alerta.alertaAlumno.find({'alumno':req.session.isLoggedIn.Data._id,'Estado':'Activo'})
+     .populate({path:'maestro',select:'Nombre Apellido_P'}).exec().then(doc=>{
 
      var anuncios= doc;
      
