@@ -1,27 +1,22 @@
 extends layout
 
 block principal
-  img(src="/images/school.jpg", alt="alt").fondo
-  .container-fluid
-    .row.text-center.padding
-      .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4
-        
-      .col-xs-0.col-sm-0.col-md-0.col-lg-8.col-xl-8
-
-      .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4.blanco.animated.rubberBand
-        h3= title
+  .d-flex.p-2.justify-content-center.carta.animated.fadeIn
+    .card.shadow.border
+      .card-body
         center
+          h3= title
           img(src="/images/user.png", alt="alt").sesion.animated.rotateIn
-        
-        form(action="/alumno/verify" method="post")
-          .form-row
-            .col-12
-              label(for="Matricula") Matrícula
-              input(type="text", name="Matricula",placeholder="Ejemplo: 1425UAU2018",required).form-control.text-center.text-uppercase
-            rh.my-2
-            .col-12
-              label(for="Password") Contraseña
-              input(type="password", name="Password").form-control.text-center
-            .col-12
-              button.btn-primary.btn-lg(type='submit') Iniciar
-            
+          form(action="/alumno/verify" method="post")
+            .form-row
+              .col-12
+                label(for="Matricula") Matrícula
+                input(type="text", name="Matricula",placeholder="Ejemplo: 1425UAU2018",required).form-control.text-center.text-uppercase
+              rh.my-2
+              .col-12
+                label(for="Password") Contraseña
+                input(type="password", name="Password").form-control.text-center
+              .col-12
+                button.btn-primary.btn-lg(type='submit') Iniciar
+  .d-flex.p-2.justify-content-center.fondo
+  

@@ -1,26 +1,26 @@
 extends layout
 
 block principal
-  img(src="/images/image_5.gif", alt="principal").img-fluid.primario
+  img(src="/images/image_5.gif", alt="principal").img-fluid.primario.mh-100
   hr.my-4
   .container-fluid.blanco
     .row
       .col-xs-0.col-sm-1.col-md-1.col-lg-2.col-xl-1
-      .col-xs-12.col-sm-10.col-md-10.col-lg-8.col-xl-10
+      .col-xs-12.col-sm-10.col-md-10.col-lg-8.col-xl-10.wow.fadeIn(data-wow-duration="1s" ,data-wow-delay="0.5s")
         h3.text-center Misión
         blockquote.blockquote 
           o.text-center A través del desarrollo de habilidades, formar hombres y mujeres éticos, con sólida calidad académica dentro de un sistema bicultural y socioemocional, siendo capaces de actuar libre y responsablemente en beneficio de la sociedad.
           small.blockquote-footer.text-right da click #[a(href="/somos", title="quienes_somos") aquí ] para saber más
 
   hr.my-4
-  .container-fluid.primario
+  .container-fluid.primario.wow.fadeInUp(data-wow-duration="1.5s", data-wow-delay="1s")
     img(src="/images/D_1.png", alt="alt").img-fluid
   hr.my-4
-  .container-fluid  
+  .container-fluid
     .row 
       .col-12
         .h3.text-center Nuestra formación
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInLeft(data-wow-duration="1.4s", data-wow-delay="0.5s")
         .card
           br
           img(src="/images/nursery.png", alt="alt").card-img
@@ -29,7 +29,7 @@ block principal
           .card-text.text-center
             p.lead Estancia para bebés
         br
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInRight(data-wow-duration="1.4s", data-wow-delay="0.8s")
         .card
           br
           img(src="/images/prekinder.png", alt="alt").card-img
@@ -38,7 +38,7 @@ block principal
           .card-text.text-center
             p.lead En camino a la ser grandes
         br
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInLeft(data-wow-duration="1.4s" ,data-wow-delay="1s")
         .card
           br
           img(src="/images/kinder.png", alt="alt").card-img
@@ -47,7 +47,7 @@ block principal
           .card-text.text-center
             p.lead Sus primeros pasos al éxito
         br
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInRight(data-wow-duration="1.4s", data-wow-delay="1.3s")
         .card
           br
           img(src="/images/primaria.png", alt="alt").card-img
@@ -56,7 +56,7 @@ block principal
           .card-text.text-center
             p.lead Desarrollo bilingüe para su futúro
         br
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInLeft(data-wow-duration="1.4s", data-wow-delay="0.7s")
         .card
           br
           img(src="/images/Secundaria.png", alt="alt").card-img
@@ -65,7 +65,7 @@ block principal
           .card-text.text-center
             p.lead Alcanzar el éxito y crecer
         br
-      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3
+      .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.wow.fadeInRight(data-wow-duration="1.4s", data-wow-delay="0.8s")
         .card
           br
           img(src="/images/preparatoria.png", alt="alt").card-img

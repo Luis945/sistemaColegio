@@ -2,7 +2,7 @@ extends layoutsesion
 
 block principal
         if  anuncios
-            .container-fluid#mencion.animated.slideInLeft
+            .container-fluid#mencion.animated.wow.slideInLeft(data-wow-duration="2.5s",data-wow-delay="1s")
                 .row.jumbotron
                     .col-xs-12.col-sm-12.col-md-9.col-lg-9.col-xl-10
                         p.lead Las alertas desaparecerán automáticamente después de pasar el periodo de vencimiento de las mismas, si no tienes alertas hacer caso omiso a este mensaje.
@@ -16,7 +16,7 @@ block principal
                             .card
                                 .card-body
                                     .card-title
-                                        h3= anuncio.Titulo
+                                        h4= anuncio.Titulo
                                     .card-text
                                         p.lead= 'Información: '+ anuncio.Descripcion
                                     .card-text
