@@ -15,8 +15,7 @@ var Alumno= new schema({
     created_at:Date,
     password:String,
     datos_escolares:{
-        Grado_Actual: {type: schema.Types.ObjectId, ref: 'Grado'},
-        Seccion_Actual: {type: schema.Types.ObjectId, ref: 'Seccion'}
+        salon:{type:schema.Types.ObjectId, ref:'Salon'}
     }
-});
+}); 
 module.exports.Schema=Alumno;
