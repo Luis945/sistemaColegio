@@ -15,4 +15,5 @@ let Salones= new schema({
     created_at: Date,
 });
 
+
 module.exports.Schema=Salones;

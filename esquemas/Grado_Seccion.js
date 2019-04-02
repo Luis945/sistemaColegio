@@ -8,4 +8,16 @@ var Grado_Seccion= new schema({
     Updated_at:Date,
 });
 
+let Seccion= new schema({
+    seccion:String,
+    created_at:Date,
+});
+
+let Grado= new schema({
+    grado: Number,
+    created_at:Date,
+});
+
 module.exports.Schema=Grado_Seccion;
+module.exports.Seccion=Seccion;
+module.exports.Grado=Grado;
