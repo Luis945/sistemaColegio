@@ -8,7 +8,7 @@ let Salones= new schema({
     Alumnos:[{
         id_alumno:{type: schema.Types.ObjectId, ref: 'Alumno'}
     }],
-    Materias[{
+    Materias:[{
         id_materia:{type: schema.Types.ObjectId,ref:'Materia'}
     }],
     Ciclo_Escolar:Date,

@@ -10,10 +10,10 @@ router.get('/login',function(req,res) {
       res.redirect('/alumno/dashboard')
     }
     else{
-      res.render('alumno',{title:'Sesión de alumnos'});
+      res.render('alumno/alumno',{title:'Sesión de alumnos'});
     }
   }else{
-    res.render('alumno',{title:'Sesión de alumnos'});
+    res.render('alumno/alumno',{title:'Sesión de alumnos'});
   }
 
   });
@@ -25,7 +25,7 @@ router.get('/dashboard',function(req,res,next){
 
      var anuncios= doc;
      
-     res.render('dashalumno',{title:'Dashboard',Alumno:req.session.isLoggedIn.Data,anuncios});
+     res.render('alumno/dashalumno',{title:'Dashboard',Alumno:req.session.isLoggedIn.Data,anuncios});
     
      });
     }

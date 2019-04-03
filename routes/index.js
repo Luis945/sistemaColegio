@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var nuevoM= require('../modelos/maestro').Maestro;
+var nuevoG= require('../modelos/grado').Grado;
+var nuevoS= require('../modelos/seccion').Seccion;
+
 
 /* Página principal */
 router.get('/', function(req, res, next) {
@@ -28,6 +31,26 @@ router.post('/agregarmaestro',function(req,res){
   });
   nuevo.save(function () {
     res.redirect('/');
-    })
-})
+    });
+});
+
+router.post('/agregarGrados',(req,res)=>{
+  let nuevoGrado= new nuevoG({
+    grado: req.body.Numero,
+    created_at:new Date(),
+  });
+  nuevoGrado.save(()=>{
+    res.redirect('/maestro/dashboard');
+  });
+});
+
+router.post('/agregarSeccion',(req,res)=>{
+  let nuevaSeccion= new nuevoS({
+    seccion:req.body.Seccion,
+    created_at:new Date(),
+  })
+  nuevaSeccion.save(()=>{
+    res.redirect('maestro/dashboard');
+  });
+});
 module.exports = router;

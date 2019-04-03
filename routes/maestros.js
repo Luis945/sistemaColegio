@@ -2,26 +2,30 @@ var express = require('express');
 var User= require('../modelos/maestro');
 var Alerta= require('../modelos/alertasAlumnos.js').alertaAlumno;
 var Alumno= require('../modelos/alumno').Alumno;
+var nuevoG= require('../modelos/grado').Grado;
+var nuevoS= require('../modelos/seccion').Seccion;
+var nuevoGyS= require('../modelos/gradoseccion').Grado_Sección;
 
 var router = express.Router();
+
   router.get('/login',function(req,res) {
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
         res.redirect('/maestro/dashboard');
       }
       else{
-       res.render('maestro',{title:'Sesión de maestros'})
+       res.render('maestro/maestro',{title:'Sesión de maestros'})
       }
     }else{
 
-      res.render('maestro',{title:'Sesión de maestros'})
+      res.render('maestro/maestro',{title:'Sesión de maestros'})
     }
   });
   router.get('/dashboard',function(req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
         
-     res.render('dashmaestro',{title:'Dashboard',Maestro:req.session.isLoggedIn.Data});
+     res.render('maestro/dashmaestro',{title:'Dashboard',Maestro:req.session.isLoggedIn.Data});
       }
       else{
         res.redirect('/maestro/login');
@@ -63,7 +67,7 @@ var router = express.Router();
         Alumno.find().exec().then(doc=>{
           alumnos=doc;
 
-        res.render('alertasAlumno',{title:'Alertas para alumnos',
+        res.render('maestro/alertasAlumno',{title:'Alertas para alumnos',
         Maestro:req.session.isLoggedIn.Data,
         alertas:alertas,
         alumnos:alumnos});
@@ -97,5 +101,17 @@ var router = express.Router();
     Alerta.findByIdAndUpdate(req.body.id,{Estado:'Inactivo'}).exec();
     res.redirect('/maestro/alertas');
   });
+
+    //agregué primero el salon, después agregaré los alumnos al salon
+  router.get('/agregarSalon',(req,res)=>{
+    if(req.session.isLoggedIn!=undefined){
+      if(req.session.isLoggedIn.Tipo=='Maestro'){
+        
+        res.render('administracion/principal',{title:'Agregar Salones',Maestro:req.session.isLoggedIn.Data});
+      
+    }else{res.redirect('/maestro/login');}
+  }else{res.redirect('/maestro/login');}
+  });
+
 
 module.exports = router;
