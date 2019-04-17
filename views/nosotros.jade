@@ -1,11 +1,29 @@
 extends layout
 
-extends principal
-    .carousel.slide#slides(data-ride='carousel')
-        ul.carousel-indicators
-            li.active(data-target='#slides',data-slide-to='0')
-            li.active(data-target='#slides',data-slide-to='1')
-            li.active(data-target='#slides',data-slide-to='2')
-        .carousel-inner
-            .carousel-item
-                
+block principal
+    .container-fluid.primario
+        .row
+            .col-12
+                #carouselExampleControls.carousel.slide(data-ride='carousel')
+                    .carousel-inner
+                        .carousel-item.active
+                            img.d-block.w-100(data-interval="7000",src='/images/Edificio_2.png', alt='First slide')
+                            .carousel-caption.d-none.d-md-block.badge-dark.rounded-pill.shadow.wow.fadeIn(wow-delay='0.5s')
+                                h5 Ven y visitanos
+                                p.lead nuestras instalaciones a tu alcance #[a(href="") mostrar mapa] 
+                        .carousel-item
+                            img.d-block.w-100(data-interval="7000",src='/images/logo montes.jpg', alt='Second slide')
+                            .carousel-caption.d-none.d-md-block.badge-dark.rounded-pill.shadow.wow.fadeIn(wow-delay='0.5s')
+                                h5 Deportes
+                                p.lead contamos con actividades extracurriculares para todos
+                        .carousel-item
+                            img.d-block.w-100(data-interval="7000",src='/images/Edificio_2.png', alt='Third slide')
+                            .carousel-caption.d-none.d-md-block
+                                h5 ...
+                                p ...
+                    a.carousel-control-prev(href='#carouselExampleControls', role='button', data-slide='prev')
+                        span.carousel-control-prev-icon(aria-hidden='true')
+                        span.sr-only Previous
+                    a.carousel-control-next(href='#carouselExampleControls', role='button', data-slide='next')
+                        span.carousel-control-next-icon(aria-hidden='true')
+                        span.sr-only Next

@@ -5,6 +5,8 @@ var Alumno= require('../modelos/alumno').Alumno;
 var nuevoG= require('../modelos/grado').Grado;
 var nuevoS= require('../modelos/seccion').Seccion;
 var nuevoGyS= require('../modelos/gradoseccion').Grado_Sección;
+var maestro= require('../modelos/maestro').Maestro;
+var salon= require('../modelos/salon').Salon;
 
 var router = express.Router();
 
@@ -64,33 +66,31 @@ var router = express.Router();
         .populate({path:'alumno',select:'Nombre Apellido_P'})
         .populate({path:'maestro',select:'Nombre Apellido_P'}).exec().then(doc=>{
           alertas=doc;
-        Alumno.find().exec().then(doc=>{
+          Alumno.find().exec().then(doc=>{
           alumnos=doc;
 
-        res.render('maestro/alertasAlumno',{title:'Alertas para alumnos',
-        Maestro:req.session.isLoggedIn.Data,
-        alertas:alertas,
-        alumnos:alumnos});
-      });
-    });
-        
-      }
-      else{
-        res.redirect('/maestro/login');
-      }
+          res.render('maestro/alertasAlumno',{title:'Alertas para alumnos',
+          Maestro:req.session.isLoggedIn.Data,
+          alertas:alertas,
+          alumnos:alumnos});
+        });
+        });
+      }else{
+            res.redirect('/maestro/login');
+          }
     }else{
       res.redirect('/maestro/login');
-    } 
+        } 
   });
   router.post('/agregarAlertas',function (req,res) {
-    var nueva= new Alerta({
+      var nueva= new Alerta({
       alumno:req.body.Alumno,
       maestro:req.session.isLoggedIn.Data._id,
       Titulo:req.body.Titulo,
       Descripcion:req.body.Descripcion,
       created_at:new Date(),
-      FechaInicio:req.body.FechaInicio,
-      FechaFin:req.body.FechaFin,
+      FechaInicio:req.body.FechaInicio+'T15:00:00Z',
+      FechaFin: req.body.FechaFin+'T15:00:00Z',
       Estado:'Activo'
     });
     nueva.save(function(){
@@ -106,11 +106,49 @@ var router = express.Router();
   router.get('/agregarSalon',(req,res)=>{
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
-        
-        res.render('administracion/principal',{title:'Agregar Salones',Maestro:req.session.isLoggedIn.Data});
-      
+        //ver los grados 
+        nuevoG.find().exec().then(grados=>{
+          //ver las secciones
+          nuevoS.find().exec().then(secciones=>{
+            //ver los maestros
+            maestro.find({Estado:'Activo'}, 'Nombre Apellido_P Correo').exec().then(maestros=>{
+              //ver los alumnos
+              Alumno.find({Estado:'Activo'},'Nombre Apellido_P').exec().then(alumnos=>{
+                //ver los salones echos
+                salon.find({}).populate({path:'Grado',select:'grado'})
+                  .populate({path:'Seccion',select:'seccion'})
+                  .populate({path:'Maestro',select:'Nombre Apellido_P'}).exec().then(salones=>{
+                  
+                    res.render('administracion/principal',
+                    {title:'Agregar Salones',
+                    Maestro:req.session.isLoggedIn.Data,
+                    Grados:grados,
+                    Secciones:secciones,
+                    Maestros:maestros,
+                    Alumnos:alumnos,
+                    Salones:salones
+                  });
+                });
+              });
+            });
+          });
+        });
     }else{res.redirect('/maestro/login');}
   }else{res.redirect('/maestro/login');}
+  });
+  //agregar salon nuevo
+  router.post('/agregarSalon',(req,res)=>{
+      var nuevoSalon= new salon({
+        Grado:req.body.Grados,
+        Seccion:req.body.Seccion,
+        Maestro:req.body.Maestro,
+        Ciclo_Escolar:new Date(req.body.Ciclo), 
+        created_at: new Date(),
+      });
+
+      nuevoSalon.save(()=>{
+        res.redirect('/maestro/agregarSalon');
+      })
   });
 
 

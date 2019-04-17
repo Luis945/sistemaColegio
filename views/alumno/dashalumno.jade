@@ -13,17 +13,17 @@ block principal
                     each anuncio in anuncios.length ? anuncios: []
                         .col-xs-12.col-sm-6.col-md-4.col-lg-4.col-xl-3.animated.slideInUp
                             br          
-                            .card
+                            .card.shadow-sm
                                 .card-body
                                     .card-title
                                         h5= anuncio.Titulo
                                     .card-text
                                         p= 'Información: '+ anuncio.Descripcion
                                     .card-text
-                                        p= 'fecha de inicio: '+ anuncio.FechaInicio
-                                        p.text-danger= 'fecha a finalizar: '+ anuncio.FechaFin
-                                    .card-body
-                                        p= 'Alerta hecha por: ' + anuncio.maestro.Nombre+ ' '+ anuncio.maestro.Apellido_P
+                                        p= 'Fecha de inicio: '+ anuncio.FechaInicio.getDate()+'/'+[anuncio.FechaInicio.getMonth() +1] +'/'+anuncio.FechaInicio.getFullYear()
+                                        p.text-danger= 'Fecha a finalizar: '+ anuncio.FechaFin.getDate()+'/'+[anuncio.FechaFin.getMonth() +1] +'/'+anuncio.FechaFin.getFullYear()
+                                    .card-text
+                                        p Alerta hecha por:  #[b= anuncio.maestro.Nombre +' '+ anuncio.maestro.Apellido_P]
                     else
                         .col-12
                             h2 No tienes alertas nuevas

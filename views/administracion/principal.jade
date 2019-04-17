@@ -1,5 +1,69 @@
 extends ../maestro/layoutsesion2
 
 block principal
-    
+    .container-fluid
+        .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-6.col-xl-4.text-center.mt-5.mb-2#agregarPanel
+                button.rounded-circle.btn-lg.btn-primary(type='button')#abrir +
+            
+            .col-xs-12.col-sm-12.col-md-12.col-lg-6.col-xl-4.text-center.d-none#ventana
+                H4 Agregar salón
+                form(action="/maestro/agregarSalon", method="post")
+                    .form-row
+                        .col
+                            label(for="Grados") Seleccionar el grado
+                            select(name="Grados").form-control
+                                each valor in Grados.length ? Grados:[{grado:'No hay valores disponibles'}]
+                                    option(value=valor._id)= valor.grado
+                        .col
+                            label(for="Seccion") Seleccionar la sección
+                            select(name="Seccion").form-control
+                                each valor in Secciones.length ? Secciones:[{seccion:'No hay secciones disponibles'}]
+                                    option(value=valor._id)= valor.seccion
+                    .form-row    
+                        .col
+                            label(for="Mestro") Seleccionar al tutor
+                            select(name="Maestro").form-control
+                                each valor in Maestros.length ? Maestros:[{Nombre:'No se encuentran maestros activos'}]
+                                    option(value=valor._id)= valor.Nombre +" "+ valor.Apellido_P
+                    .for-row
+                        .col
+                            label(for="Ciclo") Ciclo escolar
+                            input(type="month", name="Ciclo").form-control
+                    .form-row.mt-2.mb-2
+                        .col
+                            button(type="submit").btn.btn-primary.mr-3 Agregar Salón
+                            button(type="button").btn.btn-info#esconder Esconder
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12.col-xl-8.text-center
+                h3 Salones agregados
+                table.table.table-bordered
+                    tr
+                        th
+                            h6 Grado y sección
+                        th
+                            h6 Tutor a cargo
+                        th
+                            h6 Ciclo escolar
+                        th
+                            h6 Alumnos en el salon
+                        th 
+                            h6 Materias
+                    each salon in Salones.length ? Salones:[]
+                        tr 
+                            td
+                                p= salon.Grado.grado +" "+salon.Seccion.seccion
+                            td
+                                p= salon.Maestro.Nombre +" "+ salon.Maestro.Apellido_P
+                            td
+                                p= salon.Ciclo_Escolar
+                            td
+                                ul
+                                    each alumno in salon.Alumnos.length ? Salon.Alumnos:[{Nombre:'No hay alumnos registrados'}]
+                                        li= alumno.Nombre+" "+alumno.Apellido_P
 
+                            td
+                                ul
+                                    each materia in salon.Materias.length ? salon.Materias:[{Nombre:'No hay materias registradas'}]
+                                        li= materia.Nombre            
+    script(src="/javascripts/botones.js")
+    

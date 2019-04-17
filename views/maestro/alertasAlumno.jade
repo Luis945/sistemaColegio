@@ -3,7 +3,7 @@ extends layoutsesion2
 block principal
     .container-fluid
                 .row.padding 
-                    .col-xs-12.col-sm-12.col-md-6.col-lg-7.col-xl-8.animated.slideInLeft     
+                    .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4.animated.slideInLeft.shadow-sm.card.mt-3    
                         
                         h2.text-center Agrega una alerta.
                         form(action="agregarAlertas" method="post")
@@ -30,31 +30,31 @@ block principal
                                     br
                                     button(type="submit").btn.btn-block.btn-primary Enviar
                                     br
-                    .col-xs-12.col-sm-12.col-md-6.col-lg-5.col-xl-4.animated.slideInRight.text-center          
-                        each anuncio in alertas
-                                .card
+                    each anuncio in alertas
+                            .col-xs-12.col-sm-12.col-md-6.col-lg-4.col-xl-4.animated.slideInRight.text-center          
+                                .card.shadow-sm.mt-3
                                     .card-body
                                         .card-title
-                                            h4= 'Para: '+ anuncio.alumno.Nombre+" "+anuncio.alumno.Apellido_P
+                                            p.lead Para: #[b= anuncio.alumno.Nombre+" "+anuncio.alumno.Apellido_P]
                                         .card-text
-                                            p.lead='Título: '+anuncio.Titulo
-                                        
+                                            p='Título: '+anuncio.Titulo
                                             p= "Información: "+anuncio.Descripcion
                                         .card-text
-                                            p='Fecha que inicia: '+ anuncio.FechaInicio
-                                            p.text-danger='Fecha que finaliza: '+ anuncio.FechaFin
-                                        .card-body
+                                            p= 'Fecha de inicio: '+ anuncio.FechaInicio.getDate()+'/'+[anuncio.FechaInicio.getMonth() +1] +'/'+anuncio.FechaInicio.getFullYear()
+                                            p.text-danger= 'Fecha a finalizar: '+ anuncio.FechaFin.getDate()+'/'+[anuncio.FechaFin.getMonth()+1] +'/'+anuncio.FechaFin.getFullYear()
+                                        .card-text
                                             form(action="/maestro/borrarAlerta", method="post")
                                                 .form-row
                                                     input(type="hidden", name="id", value= anuncio._id)
                                                     .col
-                                                        a(href="")
-                                                            button(type='button').btn.btn-success Editar
+                                                        a(href="#")
+                                                            button(type='button').btn-sm.btn-success Editar
                                                     .col
-                                                        button(type="submit").btn.btn-danger Eliminar
-                                br
+                                                        button(type="submit").btn-sm.btn-danger Eliminar
+                                
 
-                        else
+                    else
+                        .col-xs-12.col-sm-12.col-md-6.col-lg-8.col-xl-8.animated.slideInRight.text-center.mt-3         
                                 h2 Ninguna alerta activa.
                                 i.fa.fa-grin-alt.display-1
                     

@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser')
 const session = require('express-session');
-
+const cors= require('cors');
 
 //controladores
 var indexRouter = require('./routes/index');
@@ -25,6 +25,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'mariantonieta y su hermanita',
