@@ -26,6 +26,15 @@ a {
   height:100vh;
 
 }
+.dashback{
+  background-image: url(/images/class.jpg);
+  /* Center and scale the image nicely */
+  
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+  height:100vh;
+}
 .carta{
    z-index: 990;
    position: absolute;

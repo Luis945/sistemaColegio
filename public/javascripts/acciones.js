@@ -5,4 +5,7 @@ function mencionado(){
         //do what you need here
     conentedor.hidden=true;
     }, 1400);
+
+   
+
 }

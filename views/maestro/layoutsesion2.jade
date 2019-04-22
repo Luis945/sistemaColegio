@@ -7,12 +7,13 @@ html(lang="Es")
     script(src="/bootstrap/dist/js/bootstrap.js")
     script(src="/javascripts/wow.min.js")
     script(src="/javascripts/acciones.js")
+    script(src="/javascripts/dropzone.js")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet", href="/bootstrap/dist/css/bootstrap.css", attr)
     link(rel="stylesheet", href="/stylesheets/animate.css", attr)
     link(rel="stylesheet", href="/stylesheets/all.css")
      
-  body
+  body.dashback
    nav.navbar.navbar-expand-md.sticky-top.navbar-dark.bg-dark
       a.navbar-brand(href='/') Inicio
       button.navbar-toggler(type="button",data-toggle="collapse",data-target="#navmovil")
@@ -33,7 +34,6 @@ html(lang="Es")
           li.nav-item
             a.nav-link(href='/maestro/dashboard')="Bienvenido "+ Maestro.Nombre+" "+Maestro.Apellido_P
 
-     
     block principal
       
     

@@ -9,7 +9,9 @@ var maestro= require('../modelos/maestro').Maestro;
 var salon= require('../modelos/salon').Salon;
 
 var router = express.Router();
-
+/*
+parte del login para el profesor
+*/
   router.get('/login',function(req,res) {
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -23,6 +25,7 @@ var router = express.Router();
       res.render('maestro/maestro',{title:'Sesión de maestros'})
     }
   });
+  
   router.get('/dashboard',function(req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -36,11 +39,12 @@ var router = express.Router();
       res.redirect('/maestro/login');
     }
   });
+  
   router.post('/verify',function(req,res){
     
     User.Maestro.findOne({Correo:req.body.Correo},function(err,maestro){
      if  (req.body.Password ==maestro.password){
-          req.session.isLoggedIn={Tipo:'Maestro',NombreC:maestro.Nombre+" "+maestro.Apellido_P,Data:maestro};
+          req.session.isLoggedIn = {Tipo:'Maestro',NombreC:maestro.Nombre+" "+maestro.Apellido_P,Data:maestro};
           res.redirect('/maestro/dashboard');
         }
         else{
@@ -48,16 +52,52 @@ var router = express.Router();
         }
         });
   });
+  
   router.get('/logout',function (req,res) {
     if(req.session.isLoggedIn!=undefined){
       req.session.isLoggedIn=undefined;
         res.redirect('/');
       }else{
-        res.redirect('/alumno/login');
+        res.redirect('/maestro/login');
       }
-    });
+  });
   
-  //url de las demás que no son del login
+  /*
+    apartado para la subida de calificaciones
+  */
+  router.get('/calificaciones',function(req,res){
+    if(req.session.isLoggedIn!=undefined){
+      if(req.session.isLoggedIn.Tipo=='Maestro'){
+        res.render('maestro/calificaciones',{title:'Alertas para alumnos',
+          Maestro:req.session.isLoggedIn.Data});
+      }
+    }else{
+      res.redirect('/maestro/login');
+    }
+
+  });
+  router.post('agregarCali',function(req,res){
+    if(req.session.isLoggedIn!=undefined){
+      if(req.session.isLoggedIn.Tipo=='Maestro'){
+        var archivo= req.body.excel;
+        if (archivo){
+          res.redirect('maestro/calificaciones');
+        }
+        else{
+          res.redirect('maestro/login');
+        }
+      }else{
+
+      res.redirect('/maestro/login');
+      }
+    }else{
+      res.redirect('/maestro/login');
+    }
+
+  });
+  /**
+   * parte para las alertas del colegio
+   */
   router.get('/alertas',function (req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -65,9 +105,9 @@ var router = express.Router();
         Alerta.find({'maestro':req.session.isLoggedIn.Data._id,'Estado':'Activo'})
         .populate({path:'alumno',select:'Nombre Apellido_P'})
         .populate({path:'maestro',select:'Nombre Apellido_P'}).exec().then(doc=>{
-          alertas=doc;
+          let alertas=doc;
           Alumno.find().exec().then(doc=>{
-          alumnos=doc;
+          let alumnos=doc;
 
           res.render('maestro/alertasAlumno',{title:'Alertas para alumnos',
           Maestro:req.session.isLoggedIn.Data,
@@ -82,6 +122,7 @@ var router = express.Router();
       res.redirect('/maestro/login');
         } 
   });
+
   router.post('/agregarAlertas',function (req,res) {
       var nueva= new Alerta({
       alumno:req.body.Alumno,
@@ -97,12 +138,14 @@ var router = express.Router();
       res.redirect('/maestro/alertas');
     });
   });
+  
   router.post('/borrarAlerta',function (req,res) {
     Alerta.findByIdAndUpdate(req.body.id,{Estado:'Inactivo'}).exec();
     res.redirect('/maestro/alertas');
   });
 
-    //agregué primero el salon, después agregaré los alumnos al salon
+    
+  //agregué primero el salon, después agregaré los alumnos al salon
   router.get('/agregarSalon',(req,res)=>{
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
