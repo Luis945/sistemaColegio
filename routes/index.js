@@ -53,4 +53,9 @@ router.post('/agregarSeccion',(req,res)=>{
     res.redirect('maestro/dashboard');
   });
 });
+
+
+
+
 module.exports = router;
+

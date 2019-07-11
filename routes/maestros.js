@@ -7,8 +7,8 @@ var nuevoS= require('../modelos/seccion').Seccion;
 var nuevoGyS= require('../modelos/gradoseccion').Grado_Sección;
 var maestro= require('../modelos/maestro').Maestro;
 var salon= require('../modelos/salon').Salon;
-
 var router = express.Router();
+
 /*
 parte del login para el profesor
 */
@@ -24,8 +24,7 @@ parte del login para el profesor
 
       res.render('maestro/maestro',{title:'Sesión de maestros'})
     }
-  });
-  
+  });  
   router.get('/dashboard',function(req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -39,7 +38,6 @@ parte del login para el profesor
       res.redirect('/maestro/login');
     }
   });
-  
   router.post('/verify',function(req,res){
     
     User.Maestro.findOne({Correo:req.body.Correo},function(err,maestro){
@@ -52,7 +50,6 @@ parte del login para el profesor
         }
         });
   });
-  
   router.get('/logout',function (req,res) {
     if(req.session.isLoggedIn!=undefined){
       req.session.isLoggedIn=undefined;
@@ -61,10 +58,9 @@ parte del login para el profesor
         res.redirect('/maestro/login');
       }
   });
-  
-  /*
-    apartado para la subida de calificaciones
-  */
+/*
+  apartado para la subida de calificaciones
+*/
   router.get('/calificaciones',function(req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -95,9 +91,9 @@ parte del login para el profesor
     }
 
   });
-  /**
-   * parte para las alertas del colegio
-   */
+/**
+ * parte para las alertas del colegio
+ */
   router.get('/alertas',function (req,res){
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -122,7 +118,6 @@ parte del login para el profesor
       res.redirect('/maestro/login');
         } 
   });
-
   router.post('/agregarAlertas',function (req,res) {
       var nueva= new Alerta({
       alumno:req.body.Alumno,
@@ -138,14 +133,11 @@ parte del login para el profesor
       res.redirect('/maestro/alertas');
     });
   });
-  
   router.post('/borrarAlerta',function (req,res) {
     Alerta.findByIdAndUpdate(req.body.id,{Estado:'Inactivo'}).exec();
     res.redirect('/maestro/alertas');
   });
-
-    
-  //agregué primero el salon, después agregaré los alumnos al salon
+//agregué primero el salon, después agregaré los alumnos al salon
   router.get('/agregarSalon',(req,res)=>{
     if(req.session.isLoggedIn!=undefined){
       if(req.session.isLoggedIn.Tipo=='Maestro'){
@@ -179,7 +171,7 @@ parte del login para el profesor
     }else{res.redirect('/maestro/login');}
   }else{res.redirect('/maestro/login');}
   });
-  //agregar salon nuevo
+//agregar salon nuevo
   router.post('/agregarSalon',(req,res)=>{
       var nuevoSalon= new salon({
         Grado:req.body.Grados,
@@ -194,5 +186,36 @@ parte del login para el profesor
       })
   });
 
+
+
+  //ejemplo Angular
+  
+router.get('/vermaestro',(req,res)=>{
+  maestro.find().exec().then(consulta=>{
+    return res.send(consulta);
+  });
+});
+router.get('/vermaestro/:nombre',(req,res)=>{
+  maestro.find({Nombre :""+req.params.nombre}).exec().then(consulta=>{
+   return res.send(consulta);
+  });
+});
+router.post('/vermaestro/',(req,res)=>{
+  var nuevo= new maestro(req.body);
+  nuevo.save();
+  return res.send(nuevo);
+});
+
+router.post('vermaestro/',(req,res)=>{
+
+  var nuevo= req.body;
+  maestro.updateOne({ _id: nuevo._id },
+  { $set: { Nombre: nuevo.Nombre , Apellido_P: nuevo.Apellido_P , Apellido_M: nuevo.Apellido_M , Estado: 'Inactivo' } });
+});
+router.delete('/vermaestro/:id',(req,res)=>{
+  maestro.deleteOne({_id:req.params.id}).exec().then(consulta=>{
+    return res.send(consulta);
+  });
+});
 
 module.exports = router;

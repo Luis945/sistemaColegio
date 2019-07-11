@@ -5,7 +5,7 @@ block principal
         .row
             .col-xs-0.col-sm-0.col-md-1.col-lg-2.col-xl-2
             .col-xs-12.col-sm-12.col-md-10.col-lg-8.col-xl-8.bg-light.shadow.card.animated.fadeInDown.text-center
-                p.lead.p-4 Arrastre el archivo de Excel (.xcvs) para revisarlo y posteriormente subir sus calificaciones.
+                p.lead.p-4 Arrastre el archivo de Excel #[b.text-danger (.xcvs)] para revisarlo y posteriormente subir sus calificaciones.
                 form(action="/maestro/agregarCali", method="post",enctype="multipart/form-data").dropzone.needsclick.dz-clickable.p-5.card.mb-5
                     .fallback
                         input(type="file", name="excel",multiple)
